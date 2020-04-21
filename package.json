@@ -1,0 +1,19 @@
+{
+  "name": "kreta-api-server",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "bin": {
+    "kreta-server": "server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MTI",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  }
+}
