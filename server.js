@@ -17,6 +17,7 @@ conf = JSON.parse(conf);
 const kreta_api = new backend(conf);
 const server_api = new api();
 
+kreta_api.fetch();
 setInterval(() => {
   kreta_api.fetch();
 }, 60000)
@@ -44,9 +45,35 @@ app.get('/api/v1/evaluations', (req, res) => {
   res.send(data);
 });
 
+app.get("/api/v1/notes", (req, res) => {
+  let data = kreta_api.user_data;
+  data = server_api.get_notes(data);
 
-var server = app.listen(8080, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+  res.send(data);
+});
+
+app.get("/api/v1/absences", (req, res) => {
+  let data = kreta_api.user_data;
+  data = server_api.get_absences(data);
+
+  res.send(data);
+});
+
+app.get("/api/v1/averages", (req, res) => {
+  let precise = false;
+  if (req.query.precise == 1) {
+    precise = true;
+  }
+
+  let data = kreta_api.user_data;
+  data = server_api.get_averages(data, precise);
+
+  res.send(data);
+});
+
+
+let server = app.listen(8080, function () {
+  let host = server.address().address;
+  let port = server.address().port;
   console.log(`KRETA API Server listening at http://${host}:${port}`);
 });
